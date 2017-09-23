@@ -14,3 +14,4 @@ Timer facilities for Tokio
 [dependencies]
 futures = "0.1"
 slab = "0.3.0"
+rand = "0.3"

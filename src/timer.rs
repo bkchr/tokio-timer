@@ -112,7 +112,7 @@ impl Timer {
     /// Creates a new interval which will fire at `dur` time into the future,
     /// and will repeat every `dur` interval after
     pub fn interval(&self, dur: Duration) -> Interval {
-        interval::new(self.sleep(dur), dur)
+        interval::new(self.sleep(dur), dur, dur)
     }
 
     /// Creates a new interval which will fire at the time specified by `at`,
@@ -126,7 +126,17 @@ impl Timer {
             self.sleep(Duration::from_millis(0))
         };
 
-        interval::new(sleep, dur)
+        interval::new(sleep, dur, dur)
+    }
+
+    /// Creates a new interval which will fire at a time in the range [`min`, `max`] into the
+    /// future, and will repeat every time with a new interval in the range [`min`, `max`] after.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `max < min`.
+    pub fn interval_range(&self, min: Duration, max: Duration) -> Interval {
+        interval::new(self.sleep(interval::next_duration(min, max)), min, max)
     }
 }
 

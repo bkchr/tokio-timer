@@ -90,6 +90,7 @@
 #[macro_use]
 extern crate futures;
 extern crate slab;
+extern crate rand;
 
 mod interval;
 mod mpmc;
